@@ -39,7 +39,7 @@ public class RentalService {
 
     public boolean checkOut(String videoName) {
         //retrieve the video map from the Video service now
-        Map<String, Video> videos = videoService.getVideos();
+        Map<String, Video> videos = videoService.getVideoMap();
         boolean isCheckedOut = false;
 
         if (videos.containsKey(videoName)) {
@@ -53,7 +53,7 @@ public class RentalService {
     }
 
     public boolean returnVideo(String videoName) {
-        Map<String, Video> videos = videoService.getVideos();
+        Map<String, Video> videos = videoService.getVideoMap();
         boolean isReturned = false;
 
         if (videos.containsKey(videoName)) {
@@ -67,7 +67,7 @@ public class RentalService {
     }
 
     public void receiveRating(String videoName, int rating) {
-        Map<String, Video> videos = videoService.getVideos();
+        Map<String, Video> videos = videoService.getVideoMap();
         if (videos.containsKey(videoName)) {
             Video video = videos.get(videoName);
             video.setRating(rating);
@@ -75,7 +75,7 @@ public class RentalService {
     }
 
     public String listInventory() {
-        Map<String, Video> videos = videoService.getVideos();
+        Map<String, Video> videos = videoService.getVideoMap();
         //Important to know the difference between String StringBuilder and StringBuffer
         StringBuilder builder = new StringBuilder("\n-------------------------------------- List Of Videos To Checkout ------------------------------------- \n");
 

@@ -1,9 +1,10 @@
 package com.mvp.studio.service;
 
 import com.mvp.studio.model.Video;
+import com.mvp.studio.repository.VideoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,32 +15,36 @@ import java.util.Map;
 @Service
 public class VideoService {
 
-    private Map<String, Video> videos;
+    private VideoRepository videoRepository;
+    private Map<String, Video> videoMap;
 
     //default constructor where on creation of VideoService object
     //we want to initialise default behaviour
-   public VideoService(){
-        this.videos = new HashMap<String, Video>();
+   public VideoService(VideoRepository videoRepository){
+        this.videoRepository = videoRepository;
+        this.videoMap = new HashMap<String, Video>();
         addInitialVideos();
     }
 
     //method to fetch all videos as a list.
     public List<Video> fetchAllVideos(){
 
-        //simply converted the map collection to list collection.
-        // Read up on Collections Java to know more
-       return new ArrayList(videos.values());
+       /* fetching from the database, also thanks to the JPA interface we do not have
+         write an SQL select to find all videos as this is done for us by spring.
+        */
+        List<Video> videos = videoRepository.findAll();
+
+        return videos;
     }
 
 
     //method to add video
     public Video addVideo(String videoName) {
         Video video = new Video(videoName);
-        videos.put(videoName, video);
+        videoRepository.save(video);
+        videoMap.put(videoName, video);
         return video;
     }
-
-
 
     //Note here we have copied this code from the previous video
     //rental project where we are adding predefined movies.
@@ -56,9 +61,8 @@ public class VideoService {
         addVideo("I am Java");
     }
 
-
     //getter and setter
-    public Map<String, Video> getVideos() {
-        return videos;
+    public Map<String, Video> getVideoMap() {
+        return videoMap;
     }
 }

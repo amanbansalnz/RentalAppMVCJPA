@@ -8,7 +8,7 @@ package com.mvp.studio.model;//package com.mvp.studio.model;
 //public class Rating {
 //
 //    @Id
-//    private BigDecimal id;
+//    private Long id;
 //    private BigDecimal videoId;
 //    private BigDecimal rating;
 //

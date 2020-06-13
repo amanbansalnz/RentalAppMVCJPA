@@ -2,6 +2,7 @@ package com.mvp.studio.model;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,15 +15,19 @@ import java.util.List;
 public class Video {
 
     @Id
+    @GeneratedValue
     private Long id;
     private String movieTitle;
     private boolean isCheckedOut;
     private double rating;
+    //private List<Double> ratingHistory = new ArrayList<Double>();
 
-//    private List<Rating> ratingHistory = new ArrayList<Rating>();
 
-    public Video(){
+    public Video(){ //add a default construct for JPA needing to map object to DB table
+    }
 
+    public Video(String movieTitle){
+        this.movieTitle = movieTitle;
     }
 
 
@@ -34,9 +39,6 @@ public class Video {
         this.id = id;
     }
 
-    public Video(String movieTitle){
-        this.movieTitle = movieTitle;
-    }
 
     public String getMovieTitle() {
         return movieTitle;
@@ -45,7 +47,6 @@ public class Video {
     public void setMovieTitle(String movieTitle) {
         this.movieTitle = movieTitle;
     }
-
 
     public boolean isCheckedOut() {
         return isCheckedOut;
@@ -80,6 +81,5 @@ public class Video {
                 "| isCheckedOut:" + isCheckedOut +
                 " | rating:" + getRating() + " | \n";
     }
-
 
 }
