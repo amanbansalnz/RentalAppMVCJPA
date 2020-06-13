@@ -1,0 +1,11 @@
+server:
+  port: 9030
+  servlet:
+    context-path: /rental-api
+
+logging:
+  pattern:
+    console: "%-30(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{32} - %msg%n"
+  level:
+    org.apache.pdfbox: OFF
+
