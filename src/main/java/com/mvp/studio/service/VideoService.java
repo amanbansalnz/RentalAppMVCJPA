@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 //@Service will be used by spring which tells spring to to inject
@@ -41,6 +42,7 @@ public class VideoService {
     //method to add video
     public Video addVideo(String videoName) {
         Video video = new Video(videoName);
+        //saving into db
         videoRepository.save(video);
         videoMap.put(videoName, video);
         return video;
@@ -49,16 +51,24 @@ public class VideoService {
     //Note here we have copied this code from the previous video
     //rental project where we are adding predefined movies.
     private void addInitialVideos() {
-        addVideo("The Matrix");
-        addVideo("Godfather II");
-        addVideo("Star Wars Episode IV: A New Hope");
-        addVideo("ET");
-        addVideo("War");
-        addVideo("The Meg");
-        addVideo("Star Trooper");
-        addVideo("Avengers");
-        addVideo("X-Men");
-        addVideo("I am Java");
+
+
+        List<Video> videos = videoRepository.findAll();
+
+        //adding the the list of videos to a map.
+        videoMap = videos.stream()
+                .collect(Collectors.toMap(Video::getMovieTitle, video -> video));
+
+//        addVideo("The Matrix");
+//        addVideo("Godfather II");
+//        addVideo("Star Wars Episode IV: A New Hope");
+//        addVideo("ET");
+//        addVideo("War");
+//        addVideo("The Meg");
+//        addVideo("Star Trooper");
+//        addVideo("Avengers");
+//        addVideo("X-Men");
+//        addVideo("I am Java");
     }
 
     //getter and setter

@@ -1,8 +1,12 @@
 package com.mvp.studio.model;
 
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +18,18 @@ import java.util.List;
 @Entity
 public class Video {
 
+    public static final String SEQ_GEN = "SEQ_VIDEO_GEN";
+    private static final String SEQ_NAME = "SEQ_VIDEO";
+    @GenericGenerator(
+            name = SEQ_GEN,
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = SEQ_NAME),
+                    @Parameter(name = "allocation_size", value = "10")
+            }
+    )
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = SEQ_GEN, strategy = GenerationType.SEQUENCE)
     private Long id;
     private String movieTitle;
     private boolean isCheckedOut;
