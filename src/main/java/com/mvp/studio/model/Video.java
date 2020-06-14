@@ -18,18 +18,18 @@ import java.util.List;
 @Entity
 public class Video {
 
-    public static final String SEQ_GEN = "SEQ_VIDEO_GEN";
+    public static final String SEQ_VIDEO_GEN = "SEQ_VIDEO_GEN";
     private static final String SEQ_NAME = "SEQ_VIDEO";
     @GenericGenerator(
-            name = SEQ_GEN,
+            name = SEQ_VIDEO_GEN,
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
                     @Parameter(name = "sequence_name", value = SEQ_NAME),
-                    @Parameter(name = "allocation_size", value = "10")
+                    @Parameter(name = "allocation_size", value = "20")
             }
     )
     @Id
-    @GeneratedValue(generator = SEQ_GEN, strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = SEQ_VIDEO_GEN, strategy = GenerationType.SEQUENCE)
     private Long id;
     private String movieTitle;
     private boolean isCheckedOut;
